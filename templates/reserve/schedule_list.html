@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>All Schedules | Busify</title>
+    <link rel="icon" href="{% static 'images/logo.png' %}">
+    {% include 'cdnlines.html' %}
+    <style>
+        .logo {
+            height: 40px;
+            width: auto;
+        }
+        .data {
+            margin-top: 120px;
+        }
+        body {
+            background: black; /* Fallback color in case video doesn't load */
+        }
+        .video-background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: -1;
+        }
+        .tdata {
+            background-color: rgba(40, 40, 40, 0.4);
+            padding: 30px;
+            margin-bottom: 20px;
+            border-radius: 10px;
+        }
+        .sortable {
+            cursor: pointer;
+        }
+        .sortable:hover {
+            text-decoration: underline;
+        }
+        tbody {
+            background-color: rgba(40, 40, 40, 0.8);
+        }
+        .table tbody td {
+            vertical-align: middle;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    {% include 'navbar.html' %}
+    <video class="video-background" autoplay muted loop>
+        <source src="{% static 'videos/bus-stop.mp4' %}" type="video/mp4">
+        Your browser does not support the video tag.
+    </video>
+    <div class="container-fluid data">
+        <div class="row">
+            <div class="offset-md-1 col-md-10 tdata">
+                <h4 class="text-white">All Trip Schedules:</h4>
+                {% if schedules %}
+                <table class="table table-bordered text-center text-white">
+                    <thead class="bg-primary">
+                        <tr>
+                            <th># <a href="?sort=id_asc"><span class="sortable text-white">&uarr;</span></a> <a href="?sort=id_desc"><span class="sortable text-white">&darr;</span></a></th>
+                            <th>Bus No</th>
+                            <th>Depart <a href="?sort=depart_asc"><span class="sortable text-white">&uarr;</span></a> <a href="?sort=depart_desc"><span class="sortable text-white">&darr;</span></a></th>
+                            <th>Destination <a href="?sort=destination_asc"><span class="sortable text-white">&uarr;</span></a> <a href="?sort=destination_desc"><span class="sortable text-white">&darr;</span></a></th>
+                            <th>Time</th>
+                            <th>Fare (per person) <a href="?sort=fare_asc"><span class="sortable text-white">&uarr;</span></a> <a href="?sort=fare_desc"><span class="sortable text-white">&darr;</span></a></th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for schedule in schedules %}
+                        <tr>
+                            <td>{{ schedule.id }}</td>
+                            <td>{{ schedule.bus }}</td>
+                            <td>{{ schedule.depart }}</td>
+                            <td>{{ schedule.destination }}</td>
+                            <td>{{ schedule.schedule }}</td>
+                            <td>{{ schedule.fare }}</td>
+                            {% if schedule.status == '1' %}
+                            <td>Active</td>
+                            {% else %}
+                            <td>Cancelled</td>
+                            {% endif %}
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+
+                <!-- Pagination Controls -->
+                <nav aria-label="Page navigation example">
+                    <ul class="pagination justify-content-center">
+                        {% if schedules.has_previous %}
+                        <li class="page-item">
+                            <a class="page-link" href="?page=1" aria-label="First">
+                                <span aria-hidden="true">&laquo;&laquo;</span>
+                                <span class="sr-only">First</span>
+                            </a>
+                        </li>
+                        <li class="page-item">
+                            <a class="page-link" href="?page={{ schedules.previous_page_number }}" aria-label="Previous">
+                                <span aria-hidden="true">&laquo;</span>
+                                <span class="sr-only">Previous</span>
+                            </a>
+                        </li>
+                        {% else %}
+                        <li class="page-item disabled">
+                            <span class="page-link">&laquo;&laquo;</span>
+                        </li>
+                        <li class="page-item disabled">
+                            <span class="page-link">&laquo;</span>
+                        </li>
+                        {% endif %}
+
+                        {% for num in schedules.paginator.page_range %}
+                            {% if schedules.number == num %}
+                            <li class="page-item active"><span class="page-link">{{ num }}</span></li>
+                            {% elif num > schedules.number|add:-3 and num < schedules.number|add:3 %}
+                            <li class="page-item"><a class="page-link" href="?page={{ num }}">{{ num }}</a></li>
+                            {% endif %}
+                        {% endfor %}
+
+                        {% if schedules.has_next %}
+                        <li class="page-item">
+                            <a class="page-link" href="?page={{ schedules.next_page_number }}" aria-label="Next">
+                                <span aria-hidden="true">&raquo;</span>
+                                <span class="sr-only">Next</span>
+                            </a>
+                        </li>
+                        <li class="page-item">
+                            <a class="page-link" href="?page={{ schedules.paginator.num_pages }}" aria-label="Last">
+                                <span aria-hidden="true">&raquo;&raquo;</span>
+                                <span class="sr-only">Last</span>
+                            </a>
+                        </li>
+                        {% else %}
+                        <li class="page-item disabled">
+                            <span class="page-link">&raquo;</span>
+                        </li>
+                        <li class="page-item disabled">
+                            <span class="page-link">&raquo;&raquo;</span>
+                        </li>
+                        {% endif %}
+                    </ul>
+                </nav>
+                {% else %}
+                <table class="table table-bordered text-center text-white">
+                    <thead class="bg-primary">
+                        <tr>
+                            <th>#</th>
+                            <th>Bus No</th>
+                            <th>Depart</th>
+                            <th>Destination</th>
+                            <th>Time</th>
+                            <th>Fare (per person)</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td colspan="7">No Schedules Available</td>
+                        </tr>
+                    </tbody>
+                </table>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
+    <!-- jQuery -->
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.slim.min.js"></script>
+    <!-- Popper.js -->
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+    <!-- Bootstrap JavaScript -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SignUp New User | Busify</title>
+    {% include 'cdnlines.html' %}
+    <style>
+        .navbar-custom {
+            background-color: #f4f5f7;
+            border-bottom: 1px solid #dee2e6;
+        }
+        .nav-item {
+        margin: 0 10px;
+        }
+        .nav-link {
+            color: #343a40;
+            font-weight: 500;
+            padding: 10px 15px;
+            transition: background-color 0.3s, color 0.3s;
+        }
+        .nav-link:hover, .nav-link:focus {
+            background-color: #e9ecef;
+            color: #007bff;
+        }
+        body {
+            background: url("{% static 'images/bus-stop.jpg' %}");
+            background-size: cover;
+            background-repeat: no-repeat;
+            color: white;
+        }
+        .data {
+            margin-top: 57px;
+        }
+        form {
+            border: 2px solid white;
+            border-radius: 10px;
+            box-shadow: 0 0 10px blue;
+            padding: 20px;
+            margin-top: 30px;
+            margin-bottom: 30px;
+            color: white;
+            background-color: rgba(40, 40, 40, 0.7);
+        }
+        input {
+            background-color: rgba(40, 40, 40, 0.7); 
+            color: white;
+            margin-bottom: 10px; 
+        }
+        label {
+            margin-top: 10px;
+        }
+        input::placeholder {
+            color: rgba(255, 255, 255, 0.7);
+        }
+        .logo {
+            height: 40px;
+            width: auto;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-custom fixed-top">
+        <div class="container-fluid">
+            <!-- Navbar brand -->
+            <a class="navbar-brand" href="">
+                <img src="{% static 'images/logo.png' %}" alt="Logo" class="logo">
+            </a>
+      
+            <!-- Navbar links -->
+            <div class="collapse navbar-collapse">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item mr-2">
+                        <a class="nav-link" href="{% url 'home' %}">Home</a>
+                    </li>
+                    <li class="nav-item mr-2">
+                        <a class="nav-link" href="{% url 'find-trips' %}">Find Trip</a>
+                    </li>
+                    <li class="nav-item mr-2">
+                        <a class="nav-link" href="{% url 'schedule-list' %}">Scheduled Trips</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'contact-us' %}">Contact Us</a>
+                    </li>
+                </ul>
+                <!-- Login button -->
+                <div class="form-inline my-2 my-lg-0">
+                    <a class="btn btn-outline-success mr-2" href="{% url 'login' %}">Login</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container-fluid">
+        <div class="row data">
+            <div class="offset-md-4 col-md-4">
+                <form method="POST">
+                    <h3 class="text-center">Enter Your Details</h3>
+                    {% csrf_token %}
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <label for="firstname">First Name:</label>
+                            <input type="text" id="firstname" name="firstname" placeholder="First Name" class="form-control" required>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="lastname">Last Name:</label>
+                            <input type="text" id="lastname" name="lastname" placeholder="Last Name" class="form-control" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email:</label>
+                        <input type="email" id="email" name="email" placeholder="Enter Email ID" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="username">Username:</label>
+                        <input type="text" id="username" name="username" placeholder="Enter Username" class="form-control" required>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <label for="password1">Password:</label>
+                            <input type="password" id="password1" name="password1" placeholder="Enter Password" class="form-control" required>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="password2">Confirm Password:</label>
+                            <input type="password" id="password2" name="password2" placeholder="Confirm Password" class="form-control" required>
+                        </div>
+                    </div>
+                    <center>
+                        <input type="submit" value="SignUp" class="btn btn-md btn-primary">
+                        <input type="reset" value="Clear" class="btn btn-md btn-danger">
+                        <p class="mt-4">Already have an account !! <a href="{% url 'login' %}" class="text-info">LogIn</a></p>
+                    </center>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Message Modal -->
+    {% if messages %}
+    <div class="modal fade" id="messageModal" tabindex="-1" aria-labelledby="messageModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="messageModalLabel">Notification</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <ul>
+                        {% for message in messages %}
+                            <li>{{ message }}</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        $(document).ready(function() {
+            $('#messageModal').modal('show');
+            setTimeout(function() {
+                $('#messageModal').modal('hide');
+            }, 4000);
+        });
+    </script>
+    {% endif %}
+    {% include 'footer.html' %}
+</body>
+</html>

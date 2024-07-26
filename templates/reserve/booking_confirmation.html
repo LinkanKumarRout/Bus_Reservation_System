@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Booking Confirmation | Busify</title>
+    <link rel="icon" href="{% static 'images/logo.png' %}">
+    {% include 'cdnlines.html' %}
+    <style>
+        .logo {
+            height: 40px;
+            width: auto;
+        }
+        .navbar-custom {
+            background-color: #f4f5f7;
+            border-bottom: 1px solid #dee2e6;
+        }
+        .data {
+            margin-top: 120px;
+        }
+        body {
+            background: url("{% static 'images/confirmation.jpg' %}");
+            background-repeat: no-repeat;
+            background-size: cover;
+        }
+        .book {
+            border: 2px solid white;
+            box-shadow: 0 0 10px blue;
+            background-color: rgba(40, 40, 40, 0.7);
+            color: white;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 50px;
+        }
+    </style>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+</head>
+<body>
+    {% include 'navbar.html' %}
+    <div class="container-fluid data">
+        <div class="offset-md-3 col-md-6 book" id="booking-details">
+            <h1 class="text-center">Busify - Bus Reservation System</h1><br><br>
+            <h3>Booking Confirmation Details:</h3>
+            <p>Booking Code: {{ booking.code }}</p>
+            <p>Name: {{ booking.name }}</p>
+            <p>Trip: {{ booking.schedule.depart.location }} to {{ booking.schedule.destination.location }} on {{ booking.schedule.schedule }}</p>
+            <p>Seats: {{ booking.seats }}</p>
+            <p>Total Payable: {{ booking.total_payable }}</p>
+            <center>
+                <a href="{% url 'home' %}" class="btn btn-success mr-3">Thank You !!</a>
+                <button class="btn btn-primary" onclick="downloadPDF('{{ booking.code }}', '{{ booking.name }}', '{{ booking.schedule.depart.location }}', '{{ booking.schedule.destination.location }}', '{{ booking.seats }}', '{{ booking.total_payable }}', '{{ booking.status }}', '{{ booking.date_created }}')"><i class="fa-solid fa-file-arrow-down"></i> Download PDF</button>
+            </center>
+        </div>
+    </div>
+
+    <script>
+        function downloadPDF(code, name, depart, destination, seats, total, status, date) {
+            const { jsPDF } = window.jspdf;
+            const doc = new jsPDF();
+
+            doc.text('Busify | Your Online Bus Reservation System', 10, 10);
+            doc.text(`Booking Code: ${code}`, 10, 20);
+            doc.text(`Name: ${name}`, 10, 30);
+            doc.text(`Trip: ${depart} to ${destination}`, 10, 40);
+            doc.text(`Seats: ${seats}`, 10, 50);
+            doc.text(`Total Paid: ${total}`, 10, 60);
+            doc.text(`Status: ${status === '1' ? 'Pending' : 'Paid'}`, 10, 70);
+            doc.text(`Booking Date: ${date}`, 10, 80);
+
+            doc.save(`Booking_${code}.pdf`);
+        }
+    </script>
+</body>
+</html>

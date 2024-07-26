@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login | Busify</title>
+    {% include 'cdnlines.html' %}
+    <style>
+        body {
+            color: white;
+            font-family: Arial, sans-serif;
+        }
+        .background-video {
+            position: absolute;
+            right: 0;
+            bottom: 0;
+            width: 100%; 
+            height: 100%;
+            z-index: -1;
+            object-fit: contain;
+        }
+        .data {
+            margin-top: 65px;
+            padding-top: 20px;
+        }
+        form {
+            border: none;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            padding: 30px;
+            margin-top: 30px;
+            margin-bottom: 30px;
+            color: #333;
+            background-color: rgba(255, 255, 255, 0.9);
+        }
+        .form-control {
+            background-color: #f4f4f4;
+            color: #333;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            margin-bottom: 15px;
+            padding: 10px;
+        }
+        label {
+            font-weight: bold;
+            margin-bottom: 5px;
+            display: block;
+        }
+        .form-control::placeholder {
+            color: #999;
+        }
+        .logo {
+            height: 40px;
+            width: auto;
+        }
+        a {
+            text-decoration: none;
+            color: #007bff;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+        .navbar-custom {
+            background-color: #f4f5f7;
+            border-bottom: 1px solid #dee2e6;
+        }
+        .btn1 {
+            width: 100%;
+            margin-bottom: 10px;
+            padding: 10px;
+            border-radius: 5px;
+            font-weight: bold;
+        }
+        .btn-primary {
+            background-color: #007bff;
+            border: none;
+        }
+        .btn-primary:hover {
+            background-color: #0056b3;
+        }
+        .btn-danger {
+            background-color: #dc3545;
+            border: none;
+        }
+        .btn-danger:hover {
+            background-color: #c82333;
+        }
+    </style>
+</head>
+<body>
+    <video autoplay muted loop class="background-video">
+        <source src="{% static 'videos/login1.mp4' %}" type="video/mp4">
+        Your browser does not support the video tag.
+    </video>
+
+    {% include 'navbar.html' %}
+
+    <div class="container-fluid">
+        <div class="row data">
+            <div class="offset-md-1 col-lg-4">
+                <form action="" method="post">
+                    <h3 class="text-center mb-4">Log In</h3>
+                    {% csrf_token %}
+                    <div class="form-group">
+                        <label for="username">Username:</label>
+                        <input type="text" id="username" name="username" class="form-control" placeholder="Enter Username" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="password">Password:</label>
+                        <input type="password" id="password" name="password" class="form-control" placeholder="Enter Password" required>
+                    </div>
+                    <center>
+                        <button type="submit" class="btn1 btn-primary">Log In</button>
+                        <button type="reset" class="btn1 btn-danger">Clear</button>
+                        <p class="mt-4">Don't have an account? <a href="{% url 'signup' %}" class="text-info">Sign Up</a></p>
+                    </center>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Message Modal -->
+    <div class="modal fade" id="messageModal" tabindex="-1" role="dialog" aria-labelledby="messageModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="messageModalLabel">Notification</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <ul>
+                        {% for message in messages %}
+                            <li>{{ message }}</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {% if messages %}
+        <script>
+            $(document).ready(function() {
+                $('#messageModal').modal('show');
+                setTimeout(function() {
+                    $('#messageModal').modal('hide');
+                }, 4000); // 4 seconds
+            });
+        </script>
+    {% endif %}
+</body>
+</html>

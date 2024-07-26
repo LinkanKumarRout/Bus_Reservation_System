@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payment Page | Busify</title>
+    <link rel="icon" href="{% static 'images/logo.png' %}">
+    {% include 'cdnlines.html' %}
+    <style>
+        .logo {
+            height: 40px;
+            width: auto;
+        }
+        .data {
+            margin-top: 65px;
+            padding: 20px;
+            margin-bottom: 30px;
+            position: relative; /* Ensure content is positioned relative */
+            z-index: 2; /* Higher z-index to appear above the video */
+        }
+        body {
+            margin: 0;
+            padding: 0;
+            overflow: hidden; /* Prevent scrolling */
+            background-color: #f6f6f6;
+        }
+        .video-background {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: -1;
+        }
+        .tdata {
+            background-color: rgba(197, 197, 197, 0.7);
+            padding: 20px;
+            border-radius: 10px;
+            margin-left: 3.5rem;
+            margin-right: 3.5rem;
+        }
+    </style>
+</head>
+<body>
+    {% include 'navbar.html' %}
+    <div class="container-fluid data">
+        <div class="row">
+            <video class="video-background" autoplay muted loop>
+                <source src="{% static 'videos/payment-method.mp4' %}" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+            <div class="col-md-4 tdata">
+                <h4 class="text-primary mb-4">Booking Payment Details:</h4>
+                <table class="table text-dark">
+                    <tr>
+                        <td>Booking Code</td>
+                        <td>{{ booking.code }}</td>
+                    </tr>
+                    <tr>
+                        <td>Name</td>
+                        <td>{{ booking.name }}</td>
+                    </tr>
+                    <tr>
+                        <td>Departure</td>
+                        <td>{{ booking.schedule.depart }}</td>
+                    </tr>
+                    <tr>
+                        <td>Arrival</td>
+                        <td>{{ booking.schedule.destination }}</td>
+                    </tr>
+                    <tr>
+                        <td>Seats</td>
+                        <td>{{ booking.seats }}</td>
+                    </tr>
+                    <tr>
+                        <td>Price</td>
+                        <td>{{ booking.total_payable }}</td>
+                    </tr>
+                    <tr>
+                        <td>Booking Date</td>
+                        <td>{{ booking.date_created }}</td>
+                    </tr>
+                </table>
+
+                <form method="POST">
+                    {% csrf_token %}
+                    <button class="btn btn-primary mt-4" type="submit"><i class="fa-brands fa-paypal"></i> Pay with PayPal</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

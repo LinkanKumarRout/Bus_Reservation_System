@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>All Trips | Busify</title>
+    <link rel="icon" href="{% static 'images/logo.png' %}">
+    {% include 'cdnlines.html' %}
+    <style>
+        .logo {
+            height: 40px;
+            width: auto;
+        }
+        .navbar-custom {
+            background-color: #f4f5f7;
+            border-bottom: 1px solid #dee2e6;
+        }
+        .data {
+            margin-top: 100px;
+            color: white;
+        }
+        html, body {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+        }
+        .video-background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: -1;
+        }
+        .container-fluid {
+            position: relative;
+            z-index: 1;
+        }
+        .offset-md-1 {
+            margin-top: 20px; /* Adjust as needed */
+        }
+    </style>
+</head>
+<body>
+    {% include 'navbar.html' %}
+    <video class="video-background" autoplay muted loop>
+        <source src="{% static 'videos/2.mp4' %}" type="video/mp4">
+        Your browser does not support the video tag.
+    </video>
+    <div class="container-fluid data">
+        <div class="offset-md-1 col-md-10">
+            <h4 class="text-dark">Available Trips:</h4>
+            {% if trips %}
+            <table class="table table-bordered text-white">
+                <thead class="bg-primary text-center">
+                    <tr>
+                        <th>Departure Location</th>
+                        <th>Destination Location</th>
+                        <th>Schedule</th>
+                        <th>Available Seats</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody class="bg-dark text-center">
+                    {% for trip in trips %}
+                        <tr>
+                            <td>{{ trip.depart.location }}</td>
+                            <td>{{ trip.destination.location }}</td>
+                            <td>{{ trip.schedule }}</td>
+                            <td>{{ trip.count_available }}</td>
+                            {% if user.is_authenticated %}
+                                <td class="text-center">
+                                    <a href="{% url 'book-trip' trip.id %}" class="btn btn-sm btn-success"><i class="fa-solid fa-ticket mr-1"></i>Book</a>
+                                </td>
+                            {% else %}
+                                <td class="text-center">
+                                    <a href="{% url 'login' %}" class="btn btn-sm btn-info"><i class="fa-solid fa-ticket mr-1"></i>Book</a>
+                                </td>
+                            {% endif %}
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            {% else %}
+            <table class="table table-bordered text-center text-white">
+                <thead class="bg-primary">
+                    <tr>
+                        <th>Departure Location</th>
+                        <th>Destination Location</th>
+                        <th>Schedule</th>
+                        <th>Available Seats</th>
+                    </tr>
+                </thead>
+                <tbody class="bg-dark">
+                    <tr>
+                        <td colspan="4">No Trips Available</td>
+                    </tr>
+                </tbody>
+            </table>
+            {% endif %} 
+        </div>
+    </div>
+</body>
+</html>

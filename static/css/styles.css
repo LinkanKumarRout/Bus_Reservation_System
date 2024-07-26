@@ -1,0 +1,246 @@
+.logo {
+    height: 40px;
+    width: auto;
+}
+.navbar-custom {
+    background-color: #f4f5f7;
+    border-bottom: 1px solid #dee2e6;
+}
+.banner {
+    height: 450px;
+    width: 100%;
+    margin-top: 57px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: rgb(215, 225, 235);
+    flex-direction: column;
+    animation: fadeIn 2s ease-in;
+    overflow: hidden;
+}
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+.banner h1, .banner p {
+    animation: glow 5s infinite;
+}
+.banner h1 {
+    font-size: 4rem;
+}
+.banner p {
+    font-size: 2rem;
+}
+@keyframes glow {
+    0% { text-shadow: 0 0 10px rgb(255, 0, 212); }
+    50% { text-shadow: 0 0 20px rgba(241, 103, 188, 1); }
+    100% { text-shadow: 0 0 10px rgba(247, 180, 180, 0.5); }
+}
+.intro {
+    padding: 50px 0;
+    text-align: center;
+    background-color: #ffffff;
+}
+.intro h2 {
+    margin-bottom: 20px;
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: #333;
+}
+.intro p {
+    font-size: 1.2rem;
+    color: #666;
+}
+.carousel-item img {
+    width: 100%;
+    height: auto;
+    max-height: 500px; /* Adjust the max-height as needed */
+    object-fit: cover;
+}
+.carousel-caption {
+    background-color: rgba(0, 0, 0, 0.5);
+    padding: 10px;
+    border-radius: 5px;
+    color: white;
+}
+.features {
+    background-color: #f4f5f7;
+    padding: 50px 0;
+    text-align: center;
+}
+.feature {
+    margin-bottom: 30px;
+}
+.feature h3 {
+    margin-bottom: 20px;
+}
+.steps {
+    background-color: rgba(40, 40, 40, 0.2);
+    padding: 50px 0;
+    text-align: center;
+}
+.step {
+    margin-bottom: 30px;
+}
+.cta {
+    text-align: center;
+    margin-top: 30px;
+    margin-bottom: 30px;
+}
+.cta a:hover {
+    box-shadow: 0 0 7px black;
+}
+.social {
+    background-color: #f4f5f7;
+    padding: 50px 0;
+    text-align: center;
+}
+.social a {
+    margin: 0 10px;
+    color: #333;
+    font-size: 1.5rem;
+    transition: color 0.3s;
+}
+.social a:hover {
+    color: #007bff;
+}
+.btn-primary {
+    background-color: #007bff;
+    border-color: #007bff;
+    padding: 15px 30px;
+    font-size: 1.25rem;
+    border-radius: 5px;
+    transition: background-color 0.3s, transform 0.3s;
+}
+.btn-primary:hover {
+    background-color: #0056b3;
+    transform: scale(1.05);
+}
+.video-background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: -1;
+}
+/* News Section */
+.news {
+    background-color: #ffffff;
+    text-align: center;
+    padding: 50px 10px;
+    color: #333;
+}
+.news article {
+    margin-bottom: 30px;
+    padding: 20px;
+    background-color: #f4f5f7;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
+.news article h3 {
+    margin-bottom: 10px;
+}
+.news article p {
+    font-size: 1.1rem;
+    line-height: 1.8;
+}
+/* Testimonials */
+.testimonials {
+    background-color: #f4f5f7;
+    text-align: center;
+    padding: 50px 10px;
+    color: #333;
+}
+.testimonial {
+    margin-bottom: 30px;
+    padding: 20px;
+    background-color: #ffffff;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
+.testimonial p {
+    font-size: 1.1rem;
+    margin-bottom: 10px;
+}
+.testimonial cite {
+    font-style: normal;
+    font-size: 1.2rem;
+}
+/* Featured Destinations Section */
+.destinations {
+padding: 50px 0;
+background-color: #f4f5f7;
+text-align: center;
+}
+
+.destinations h2 {
+margin-bottom: 50px;
+font-size: 2.5rem;
+font-weight: 700;
+color: #333;
+}
+
+.destinations img {
+width: 100%;
+height: auto;
+border-radius: 5px;
+margin-bottom: 20px;
+}
+
+.destinations h3 {
+font-size: 2rem;
+font-weight: 700;
+color: #333;
+margin-bottom: 10px;
+}
+
+.destinations p {
+font-size: 1.2rem;
+color: #666;
+}
+
+/* FAQ Section */
+.faq {
+padding: 50px 0;
+background-color: #ffffff;
+text-align: center;
+}
+
+.faq h2 {
+margin-bottom: 50px;
+font-size: 2.5rem;
+font-weight: 700;
+color: #333;
+}
+
+.card-header {
+background-color: #007bff;
+}
+
+.card-header h5 {
+margin: 0;
+font-size: 1.2rem;
+font-weight: 700;
+color: #fff;
+}
+
+.card-body {
+font-size: 1.1rem;
+color: #333;
+}
+
+.card-body p {
+margin-bottom: 0;
+}
+
+.btn-link {
+color: #007bff;
+font-weight: 700;
+}
+
+.btn-link:hover {
+text-decoration: none;
+color: #0056b3;
+}

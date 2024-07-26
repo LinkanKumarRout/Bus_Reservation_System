@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us | Busify</title>
+    <link rel="icon" href="{% static 'images/logo.png' %}">
+    {% include 'cdnlines.html' %}
+    <style>
+        .logo {
+            height: 40px;
+            width: auto;
+        }
+        .navbar-custom {
+            background-color: #f4f5f7;
+            border-bottom: 1px solid #dee2e6;
+        }
+        
+        body {
+            margin: 0;
+            padding: 0;
+        }
+        .background-video {
+            position: fixed;
+            top: 68px;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: -1;
+        }
+        .con-us {
+            border: 2px solid white;
+            border-radius: 10px;
+            box-shadow: 0 0 10px blue;
+            padding: 20px;
+            margin-top: 88px;
+            margin-bottom: 20px;
+            color: white;
+            background-color: rgba(40, 40, 40, 0.85);
+            width: 80%;
+            max-width: 750px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .con-us h3 {
+            font-size: 1.75rem;
+            font-weight: bold;
+        }
+        .con-us input, .con-us textarea {
+            margin-bottom: 15px; 
+            padding: 10px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            font-size: 1rem;
+            width: 100%;
+        }
+        .con-us label {
+            margin-top: 15px;
+            font-weight: bold;
+        }
+        .con-us .btn {
+            padding: 10px 20px;
+            font-size: 1rem;
+            border-radius: 5px;
+        }
+        .con-us .btn-primary {
+            background-color: #007bff;
+            border: none;
+        }
+        .con-us .btn-danger {
+            background-color: #dc3545;
+            border: none;
+        }
+    </style>
+</head>
+<body>
+    <video autoplay muted loop class="background-video">
+        <source src="{% static 'videos/contact-us.mp4' %}" type="video/mp4">
+        Your browser does not support the video tag.
+    </video>
+    {% include 'navbar.html' %}
+    <div class="container-fluid">
+        <div class="offset-md-1 col-md-10">
+            <form action="{% url 'contact-us' %}" method="post" class="con-us">
+                {% csrf_token %}
+                <h3 class="mt-2 mb-2">Contact Us</h3>
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <label for="name">Name</label>
+                        <input type="text" id="name" name="name" class="form-control" placeholder="Enter your name" required>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="email">Email</label>
+                        <input type="email" id="email" name="email" class="form-control" placeholder="Enter your email" required>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="subject">Subject</label>
+                    <input type="text" id="subject" name="subject" class="form-control" placeholder="Enter the subject" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="message">Message</label>
+                    <textarea id="message" name="message" class="form-control" placeholder="Enter your message" rows="4" required></textarea>
+                </div>
+                
+                <div class="text-center">
+                    <input type="submit" value="Submit" class="btn btn-primary mt-3 mr-3">
+                    <input type="reset" value="Clear" class="btn btn-danger mt-3">
+                </div>
+            </form>
+        </div>
+    </div>
+
+    {% if messages %}
+        <div id="successModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="successModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="successModalLabel">Notification</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        {% for message in messages %}
+                            <div class="alert {% if message.tags %}alert-{{ message.tags }}{% endif %}">
+                                {{ message }}
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endif %}
+
+    <!-- jQuery -->
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.slim.min.js"></script>
+    <!-- Popper.js -->
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+    <!-- Bootstrap JavaScript -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            var successModal = $('#successModal');
+            if (successModal.length) {
+                successModal.modal('show');
+                setTimeout(function() {
+                    successModal.modal('hide');
+                }, 7000);
+            }
+        });
+    </script>
+</body>
+</html>

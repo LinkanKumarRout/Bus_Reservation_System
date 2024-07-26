@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  {% include 'cdnlines.html' %}
+  <style>
+    .footer {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: 150px;
+        background-color: #000000;
+        border-top: 1px solid #dee2e6;
+        text-align: center;
+        padding: 10px 0;
+        color: white;
+    }
+
+    .footer a {
+      color: white; 
+      text-decoration: none;
+      margin: 0 10px;
+    }
+
+    .footer a i {
+      margin-right: 5px; 
+    }
+  </style>
+</head>
+<body>
+  <!-- Footer -->
+  <footer class="footer">
+    <div>
+      <a href="https://www.instagram.com/linkan_kumar_rout/" target="_blank"><i class="fa-brands fa-instagram"></i> Instagram</a>
+      <a href="https://www.facebook.com/" target="_blank"><i class="fab fa-facebook"></i> Facebook</a>
+      <a href="https://github.com/LinkanKumarRout" target="_blank"><i class="fab fa-github"></i> GitHub</a>
+    </div>
+    <div>
+      &copy; {{ 2024 }} Busify | Linkan Kumar Rout
+    </div>
+  </footer>
+</body>
+</html>
