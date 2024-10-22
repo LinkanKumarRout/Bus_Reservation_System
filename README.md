@@ -8,4 +8,4 @@
 ### admin ID - admin
 ### admin PW - admin123
 
-### if you delete the database then run makemigrations and migrate command and add all data by logging into admin panel.
+### if you delete the database then run makemigrations and migrate command and add all data by log in into admin panel with given admin credentials.
