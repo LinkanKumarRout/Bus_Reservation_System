@@ -1,8 +1,10 @@
 # Bus Reservation System
 
-### You have to make changes in the settings.py file before running this project
+- You have to make changes in the settings.py file before running this project
+  
+- First of all add PAYPAL Client ID and Client Secret Key in settings.py file
 
-### First of all add PAYPAL Client ID and Client Secret Key in settings.py file
+- Also add your email ID and password, create a pass-key and give that key as password
 
 ### Admin Credentials
 ### admin ID - admin
